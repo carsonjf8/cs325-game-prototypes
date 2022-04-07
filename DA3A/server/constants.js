@@ -1,0 +1,21 @@
+const FRAME_RATE = 60;
+const MAX_PLAYERS = 10;
+const NUM_TEAMS = 2;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 600;
+const PLAYER_WIDTH = 25;
+const PLAYER_HEIGHT = 25;
+const LASER_RADIUS = 4;
+const LASER_SPEED = 4;
+
+module.exports = {
+    FRAME_RATE,
+    MAX_PLAYERS,
+    NUM_TEAMS,
+    CANVAS_WIDTH,
+    CANVAS_HEIGHT,
+    PLAYER_WIDTH,
+    PLAYER_HEIGHT,
+    LASER_RADIUS,
+    LASER_SPEED
+}
