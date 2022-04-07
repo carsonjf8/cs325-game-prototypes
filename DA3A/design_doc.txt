@@ -1,0 +1,30 @@
+CS 325 - Introduction to Computer Game Design
+Digital Assignment 3 - Carson Forsyth
+Overgrown
+Originality: What is original about your game?
+	I intend to implement a flashlight attribute for the players so that they can only see in a specific area ahead of them.  This will use raycasting to determine walls and what is viewable.
+Technical Merit: What is interesting about your game technology?
+	I have made it a multiplayer networked game using socket.io from javascript.  In addition, I am using raycasting techniques to make it more interesting.
+Prototype Postmortem: What did you learn from this prototype? What was the easiest or hardest part of making it?
+	I am learning a lot about how networking works, and trying to figure out what should be handled on the client vs server side.
+Prototype Assets: Did you make your prototype assets from scratch? Did you borrow them? Cite your sources here.
+	As of right now, I do not have any assets, but in the future I may borrow them from somewhere.
+Prototype Closest Other Game: Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
+	I am not aware of any other games that resemble the style and type of game I am going for.
+High Concept: A one-sentence summary of your game.
+	You and a team of players must fight against another team to get the most kills.
+Theme: State which of the themes or challenges you used.
+	None, I may add the option for players to join at any time.
+Mandated Variety: State which input, randomness, genre, and play style you used in this prototype.
+	Input: keyboard, mouse, direct
+	Randomness: deterministic
+	Genre: shooter, overhead
+	Play Style: Competitor
+Prototype Goal: What game mechanic is this prototype evaluating?
+	The networking across multiple computers and the flashlight raycasting aspects.
+Player Experience Goals: What experience do you want players to have when playing your game?
+	A fast paced game that involves teamwork and coordination.
+Gameplay: A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
+	Players move around using WASD and aim using the mouse.  Left clicking on the mouse will cause your player to shoot.  You will also have a flashlight that points in the direction that you are facing.  What this means is that you can only see in one direction instead of in all directions as many overhead games allow.  When you get shot, you will be teleported back to your end of the game area.  There is no friendly fire.  Powerups will be added such as turrets and traps to allow for more tactics.  In addition, walls will also be added to allow for shielding and hiding.  I am thinking about having some kind of CTF or Control the Outpost mechanic for some areas to further push for the teamwork aspect.
+Play Time: How long does your game take to play?
+	Only a few minutes.
