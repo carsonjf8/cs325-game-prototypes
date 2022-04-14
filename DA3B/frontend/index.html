@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laser Night</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #playerScreen {
+            display: none;
+        }
+        #gameScreen {
+            display: none;
+        }
+        #finalScoresScreen {
+            display: none;
+        }
+    </style>
+</head>
+<body style="background-color: lightgray">
+    <section class='vh-100'>
+        <div class='container h-100'>
+
+            <!-- Main screen where you enter your username and choose to create a new game or join one -->
+            <div id='initialScreen' class='h-100'>
+                <div class='d-flex flex-column align-items-center justify-content-center h-100'>
+                    <h1>Laser Night</h1>
+                    <div class='form-group'>
+                        <input type='text' placeholder='Enter Your Username' id='usernameInput'/>
+                    </div>
+                    <button
+                        type='submit'
+                        class='btn btn-success'
+                        id='newGameBtn'
+                    >
+                        Create New Game
+                    </button>
+                    <div>OR</div>
+                    <div class='form-group'>
+                        <input type='text' placeholder='Enter Game Code' id='gameCodeInput'/>
+                    </div>
+                    <button
+                        type='submit'
+                        class='btn btn-success'
+                        id='joinGameBtn'
+                    >
+                        Join Game
+                    </button>
+                </div>
+            </div>
+
+            <!-- player list screen -->
+            <div id='playerScreen' class='h-100'>
+                <div class='d-flex flex-column align-items-center justify-content-center h-100'>
+                    <h3 id='gameCodeDisplay'></h3>
+
+                    <div class='grid' id='playerListGrid'>
+                        <div class='row'>
+                            <h1 class='justify-content-center'>Players</h1>
+                        </div>
+                        <div class='row'>
+                            <div class='column' id='redPlayerList'>
+                                <h2>Red Team</h2>
+                                <!-- format for adding new players to the player list
+                                    <h2 class='justify-content-center'>playerName</h2>
+                                -->
+                            </div>
+                            <div class='column' id='bluePlayerList'>
+                                <h2>Blue Team</h2>
+                                <!-- format for adding new players to the player list
+                                    <h2 class='justify-content-center'>playerName</h2>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <button id='startGameBtn' class='justify-content-center'>Start Game</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- game screen -->
+            <div id='gameScreen' class='h-100'>
+                <div class='d-flex flex-column align-items-center justify-content-center h-100' style='font-size:32px'>
+                    <row>
+                        <h1' style='text-align:center'>First to 20 wins!</h2>
+                    </row>
+                    <row>
+                        <span style='color:#ff0000' id='redTeamScoreDisplay'>0</span>
+                        <span style='color:#0000ff' id='blueTeamScoreDisplay'>0</span>
+                    </row>
+                    <row>
+                        <canvas id='canvas'></canvas>
+                    </row>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="index.js"></script>
+</body>
+</html>

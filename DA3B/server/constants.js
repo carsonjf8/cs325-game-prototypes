@@ -1,0 +1,39 @@
+const FRAME_RATE = 60;
+const MAX_PLAYERS = 6;
+const NUM_TEAMS = 2;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 600;
+const PLAYER_WIDTH = 20;
+const PLAYER_HEIGHT = 20;
+const LASER_RADIUS = 4;
+const LASER_SPEED = 4;
+const WALL_GRID_SIZE = PLAYER_WIDTH * 2;
+const MAX_WALL_WIDTH = 100;
+const MAX_WALL_HEIGHT = 100;
+const MIN_WALL_WIDTH = 20;
+const MIN_WALL_HEIGHT = 20;
+const POWERUP_COOLDOWN = 10;
+const MAX_POWERUPS = 5;
+const NUM_POWERUP_TYPES = 2; // rapid fire, large flashlight
+const MAX_SCORE = 20;
+
+module.exports = {
+    FRAME_RATE,
+    MAX_PLAYERS,
+    NUM_TEAMS,
+    CANVAS_WIDTH,
+    CANVAS_HEIGHT,
+    PLAYER_WIDTH,
+    PLAYER_HEIGHT,
+    LASER_RADIUS,
+    LASER_SPEED,
+    WALL_GRID_SIZE,
+    MAX_WALL_WIDTH,
+    MAX_WALL_HEIGHT,
+    MIN_WALL_WIDTH,
+    MIN_WALL_HEIGHT,
+    POWERUP_COOLDOWN,
+    MAX_POWERUPS,
+    NUM_POWERUP_TYPES,
+    MAX_SCORE
+}
