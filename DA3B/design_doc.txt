@@ -2,19 +2,19 @@ CS 325 - Introduction to Computer Game Design
 Digital Assignment 3 - Carson Forsyth
 Overgrown
 Originality: What is original about your game?
-	I intend to implement a flashlight attribute for the players so that they can only see in a specific area ahead of them.  This will use raycasting to determine walls and what is viewable.
+	I intend to implement a flashlight attribute for the players so that they can only see in a specific area ahead of them.  I feel like there aren't really any 2D games that utilize the minimization of viewing area to create difficulty and require skill to do well.
 Technical Merit: What is interesting about your game technology?
-	I have made it a multiplayer networked game using socket.io from javascript.  In addition, I am using raycasting techniques to make it more interesting.
+	I have made it a multiplayer networked game using socket.io from javascript.
 Prototype Postmortem: What did you learn from this prototype? What was the easiest or hardest part of making it?
 	I am learning a lot about how networking works, and trying to figure out what should be handled on the client vs server side.
 Prototype Assets: Did you make your prototype assets from scratch? Did you borrow them? Cite your sources here.
-	As of right now, I do not have any assets, but in the future I may borrow them from somewhere.
+	All assets are my own.
 Prototype Closest Other Game: Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
 	I am not aware of any other games that resemble the style and type of game I am going for.
 High Concept: A one-sentence summary of your game.
 	You and a team of players must fight against another team to get the most kills.
 Theme: State which of the themes or challenges you used.
-	None, I may add the option for players to join at any time.
+	None.
 Mandated Variety: State which input, randomness, genre, and play style you used in this prototype.
 	Input: keyboard, mouse, direct
 	Randomness: deterministic

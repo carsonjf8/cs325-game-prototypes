@@ -1,4 +1,4 @@
-const FRAME_RATE = 30;
+const FRAME_RATE = 60;
 const MAX_PLAYERS = 12;
 const NUM_TEAMS = 2;
 const CANVAS_WIDTH = 800;
