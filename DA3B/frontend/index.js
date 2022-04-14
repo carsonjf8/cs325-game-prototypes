@@ -30,6 +30,10 @@ const redTeamScoreDisplay = document.getElementById('redTeamScoreDisplay');
 const blueTeamScoreDisplay = document.getElementById('blueTeamScoreDisplay');
 const gameScreen = document.getElementById('gameScreen');
 
+// image assets
+const grassImg = document.getElementById('grass');
+const rockImg = document.getElementById('rock');
+
 const FRAME_RATE = 60; // frame rate
 const CANVAS_WIDTH = 800; // width of canvas
 const CANVAS_HEIGHT = 600; // height of canvas
