@@ -1,7 +1,7 @@
 // local development socket
 // const socket = io('localhost:3000');
 // heroku deployment socket
- const socket = io('https://powerful-lake-99065.herokuapp.com/');
+ const socket = io('https://thawing-cliffs-15940.herokuapp.com/');
 
 // initial screen components
 const initialScreen = document.getElementById('initialScreen');
