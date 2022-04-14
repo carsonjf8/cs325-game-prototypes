@@ -30,10 +30,6 @@ const redTeamScoreDisplay = document.getElementById('redTeamScoreDisplay');
 const blueTeamScoreDisplay = document.getElementById('blueTeamScoreDisplay');
 const gameScreen = document.getElementById('gameScreen');
 
-// image assets
-const grassImg = document.getElementById('grass');
-const rockImg = document.getElementById('rock');
-
 const FRAME_RATE = 60; // frame rate
 const CANVAS_WIDTH = 800; // width of canvas
 const CANVAS_HEIGHT = 600; // height of canvas
@@ -415,20 +411,6 @@ function handleGameState(data) {
 function paintGame() {
     let state = gameState;
     if(gameActive) {
-        // draw map
-        for(let i = 0; i < state.map.length; i++) {
-            for(let j = 0; j < state.map[0].length; j++) {
-                tile = state.map[i][j];
-                if(tile === 0) { // ground / grass
-                    ctx.drawImage('resources/grass.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
-                }
-                else if(tile === 1) { // wall / rock
-                    ctx.drawImage('resources/rock.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
-                }
-            }
-        }
-
-        /*
         // draw background
         ctx.fillStyle = '#567d46'; // green
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -443,7 +425,6 @@ function paintGame() {
                 }
             }
         }
-        */
 
         // draw powerups
         for(let i = 0; i < gameState.powerups.length; i++) {
