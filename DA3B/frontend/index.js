@@ -126,6 +126,7 @@ function reset() {
 
 function init() {
     initialScreen.style.display = 'none';
+    howToPlayScreen.style.display = 'none';
     playerListScreen.style.display = 'block';
     startGameBtn.style.display = 'none';
     startGameBtn.disabled = true;
