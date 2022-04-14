@@ -393,12 +393,14 @@ function handleGameState(data) {
             teamMembers.push(0);
         }
 
+        /*
         // clear player name labels
         for(let i = 0; i < playerTeams.length; i++) {
             for(let j = 0; j < playerTeams[i].length; i++) {
                 playerTeams[i][j].innerText = '';
             }
         }
+        */
 
         // add player names to player list view
         for(let i = 0; i < gameState.players.length; i++) {
