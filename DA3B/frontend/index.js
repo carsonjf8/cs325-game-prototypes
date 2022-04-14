@@ -177,6 +177,9 @@ function handleStartGame() {
 
     document.addEventListener('keydown', function(key) {
         keyState[key.key] = true;
+        if(keyState[' ']) {
+            shootLaser();
+        }
     });
 
     document.addEventListener('keyup', function(key) {
