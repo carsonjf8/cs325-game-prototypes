@@ -416,10 +416,10 @@ function paintGame() {
             for(let j = 0; j < state.map[0].length; j++) {
                 tile = state.map[i][j];
                 if(tile === 0) { // ground / grass
-                    ctx.drawImage('grass.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
+                    ctx.drawImage('resources/grass.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
                 }
                 else if(tile === 1) { // wall / rock
-                    ctx.drawImage('rock.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
+                    ctx.drawImage('resources/rock.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
                 }
             }
         }
