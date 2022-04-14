@@ -56,6 +56,7 @@ let intervalId; // interval to update screen
 let gameState; // current game state
 let roomLeader = false; // can start game
 let keyState = {};
+let mousePos = [];
 
 let myPlayer = null; // info about the user's player
 let myPlayerId; // player number
@@ -169,7 +170,7 @@ function handleStartGame() {
     gameActive = true;
 
     canvas.addEventListener('mousemove', function(event) {
-        let mousePos = getMousePos(canvas, event);
+        mousePos = getMousePos(canvas, event);
         changePlayerAngle(mousePos);
     });
 
@@ -178,6 +179,7 @@ function handleStartGame() {
     document.addEventListener('keydown', function(key) {
         keyState[key.key] = true;
         if(keyState[' ']) {
+            changePlayerAngle(mousePos);
             shootLaser();
         }
     });
