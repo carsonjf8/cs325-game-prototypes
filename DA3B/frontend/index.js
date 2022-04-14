@@ -411,12 +411,26 @@ function handleGameState(data) {
 function paintGame() {
     let state = gameState;
     if(gameActive) {
+        // draw map
+        for(let i = 0; i < state.map.length; i++) {
+            for(let j = 0; j < state.map[0].length; j++) {
+                tile = state.map[i][j];
+                if(tile === 0) { // ground / grass
+                    ctx.drawImage('grass.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
+                }
+                else if(tile === 1) { // wall / rock
+                    ctx.drawImage('rock.png', j * WALL_GRID_SIZE, i * WALL_GRID_SIZE, WALL_GRID_SIZE, WALL_GRID_SIZE);
+                }
+            }
+        }
+
+        /*
         // draw background
-        ctx.fillStyle = '#567d46';
+        ctx.fillStyle = '#567d46'; // green
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // draw walls
-        ctx.fillStyle = '#888c8d'
+        ctx.fillStyle = '#888c8d'; // gray
         for(let i = 0; i < state.map.length; i++) {
             for(let j = 0; j < state.map[0].length; j++) {
                 wall = state.map[i][j];
@@ -425,6 +439,7 @@ function paintGame() {
                 }
             }
         }
+        */
 
         // draw powerups
         for(let i = 0; i < gameState.powerups.length; i++) {
