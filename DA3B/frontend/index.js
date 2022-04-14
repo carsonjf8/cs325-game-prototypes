@@ -108,7 +108,7 @@ function handleUnknownGame() {
 
 function handleTooManyPlayers() {
     reset();
-    alert('This game is already in progress');
+    alert('This game is full');
 }
 
 function reset() {
