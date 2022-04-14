@@ -21,6 +21,8 @@ const playerTeamDisplays = [redTeamPlayerListDisplay, blueTeamPlayerListDisplay]
 const redTeamPlayersList = [];
 const blueTeamPlayersList = [];
 const playerTeams = [redTeamPlayersList, blueTeamPlayersList];
+// const switchTeamBtn = document.getElementById('switchTeamBtn');
+// switchTeamBtn.addEventListener('click', switchTeam);
 const startGameBtn = document.getElementById('startGameBtn');
 startGameBtn.addEventListener('click', startGame);
 
@@ -147,7 +149,7 @@ function addNewPlayer(teamId) {
 }
 
 function switchTeam() {
-    socket.emit('switchTeam', playerId);
+    socket.emit('switchTeam', myPlayerId);
 }
 
 function startGame() {
@@ -391,6 +393,14 @@ function handleGameState(data) {
             teamMembers.push(0);
         }
 
+        // clear player name labels
+        for(let i = 0; i < playerTeams.length; i++) {
+            for(let j = 0; j < playerTeams[i].length; i++) {
+                playerTeams[i][j].innerText = '';
+            }
+        }
+
+        // add player names to player list view
         for(let i = 0; i < gameState.players.length; i++) {
             player = gameState.players[i];
             teamMembers[player.team]++;

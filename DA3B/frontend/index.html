@@ -17,10 +17,9 @@
         }
     </style>
 </head>
-<body style="background-color: lightgray">
+<body style="background-color: #666666">
     <section class='vh-100'>
         <div class='container h-100'>
-
             <!-- Main screen where you enter your username and choose to create a new game or join one -->
             <div id='initialScreen' class='h-100'>
                 <div class='d-flex flex-column align-items-center justify-content-center h-100'>
@@ -32,6 +31,7 @@
                         type='submit'
                         class='btn btn-success'
                         id='newGameBtn'
+                        style="background-color: black; border-color: black; color: yellow;"
                     >
                         Create New Game
                     </button>
@@ -43,6 +43,7 @@
                         type='submit'
                         class='btn btn-success'
                         id='joinGameBtn'
+                        style="background-color: black; border-color: black; color: yellow;"
                     >
                         Join Game
                     </button>
@@ -55,26 +56,46 @@
                     <h3 id='gameCodeDisplay'></h3>
 
                     <div class='grid' id='playerListGrid'>
-                        <div class='row'>
+                        <div class='row justify-content-center'>
                             <h1 class='justify-content-center'>Players</h1>
                         </div>
                         <div class='row'>
-                            <div class='column' id='redPlayerList'>
-                                <h2>Red Team</h2>
+                            <div class='column' id='redPlayerList' style='color:#ff0000;'>
+                                <h1 style="font-weight: bold;">Red Team</h1>
                                 <!-- format for adding new players to the player list
                                     <h2 class='justify-content-center'>playerName</h2>
                                 -->
                             </div>
-                            <div class='column' id='bluePlayerList'>
-                                <h2>Blue Team</h2>
+                            <div class='column' id='bluePlayerList' style="padding-left: 20px; color:#0000ff">
+                                <h1 style="font-weight: bold;">Blue Team</h1>
                                 <!-- format for adding new players to the player list
                                     <h2 class='justify-content-center'>playerName</h2>
                                 -->
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- switch teams button 
+                    <div class='row' style="padding-top: 10px;">
+                        <button
+                            id='switchTeamBtn'
+                            class='justify-content-center'
+                            style="background-color: black; border-color: black; color: yellow;"
+                        >
+                            Switch Teams
+                        </button>
+                    </div>
+                    -->
+
+                    <!-- start game button -->
                     <div class='row'>
-                        <button id='startGameBtn' class='justify-content-center'>Start Game</button>
+                        <button
+                            id='startGameBtn'
+                            class='justify-content-center'
+                            style="background-color: black; border-color: black; color: yellow;"
+                        >
+                            Start Game
+                        </button>
                     </div>
                 </div>
             </div>
@@ -86,8 +107,9 @@
                         <h1' style='text-align:center'>First to 20 wins!</h2>
                     </row>
                     <row>
-                        <span style='color:#ff0000' id='redTeamScoreDisplay'>0</span>
-                        <span style='color:#0000ff' id='blueTeamScoreDisplay'>0</span>
+                        <span style='color:#ff0000; font-weight: bold;' id='redTeamScoreDisplay'>0</span>
+                        <span style='color: black; font-weight: bold;' >--</span>
+                        <span style='color:#0000ff; font-weight: bold;' id='blueTeamScoreDisplay'>0</span>
                     </row>
                     <row>
                         <canvas id='canvas'></canvas>
