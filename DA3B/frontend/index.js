@@ -11,6 +11,13 @@ newGameBtn.addEventListener('click', newGame);
 const gameCodeInput = document.getElementById('gameCodeInput');
 const joinGameBtn = document.getElementById('joinGameBtn');
 joinGameBtn.addEventListener('click', joinGame);
+const goToHowToPlayBtn = document.getElementById('goToHowToPlayBtn');
+goToHowToPlayBtn.addEventListener('click', goToHowToPlay);
+
+// how to play screen components
+const howToPlayScreen = document.getElementById('howToPlayScreen');
+const backBtn = document.getElementById('backBtn');
+backBtn.addEventListener('click', backToMainMenu);
 
 // player list screen components
 const playerListScreen = document.getElementById('playerScreen');
@@ -122,6 +129,16 @@ function init() {
     playerListScreen.style.display = 'block';
     startGameBtn.style.display = 'none';
     startGameBtn.disabled = true;
+}
+
+function goToHowToPlay() {
+    initialScreen.style.display = 'none';
+    howToPlayScreen.style.display = 'block';
+}
+
+function backToMainMenu() {
+    initialScreen.style.display = 'block';
+    howToPlayScreen.style.display = 'none';
 }
 
 function handleInit(number, roomCode) {

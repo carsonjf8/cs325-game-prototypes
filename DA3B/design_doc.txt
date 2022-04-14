@@ -1,6 +1,6 @@
 CS 325 - Introduction to Computer Game Design
 Digital Assignment 3 - Carson Forsyth
-Overgrown
+Laser Night
 Originality: What is original about your game?
 	I intend to implement a flashlight attribute for the players so that they can only see in a specific area ahead of them.  I feel like there aren't really any 2D games that utilize the minimization of viewing area to create difficulty and require skill to do well.
 Technical Merit: What is interesting about your game technology?
@@ -21,10 +21,10 @@ Mandated Variety: State which input, randomness, genre, and play style you used 
 	Genre: shooter, overhead
 	Play Style: Competitor
 Prototype Goal: What game mechanic is this prototype evaluating?
-	The networking across multiple computers and the flashlight raycasting aspects.
+	The networking across multiple computers
 Player Experience Goals: What experience do you want players to have when playing your game?
 	A fast paced game that involves teamwork and coordination.
 Gameplay: A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
-	Players move around using WASD and aim using the mouse.  Left clicking on the mouse will cause your player to shoot.  You will also have a flashlight that points in the direction that you are facing.  What this means is that you can only see in one direction instead of in all directions as many overhead games allow.  When you get shot, you will be teleported back to your end of the game area.  There is no friendly fire.  Powerups will be added such as turrets and traps to allow for more tactics.  In addition, walls will also be added to allow for shielding and hiding.  I am thinking about having some kind of CTF or Control the Outpost mechanic for some areas to further push for the teamwork aspect.
+	Players move around using WASD or the ARROW KEYS and aim using the mouse.  Left clicking on the mouse or pressing SPACE will cause your player to shoot.  You will also have a flashlight that points in the direction that you are facing.  What this means is that you can only see in one direction instead of in all directions as many overhead games allow.  When you get shot, you will be teleported back to your end of the game area.  There is no friendly fire.  Powerups such as rapid fire and larger flashlight allow for more tactics.  In addition, walls allow for shielding and hiding.  The objective is to get more kills than the opposing team.
 Play Time: How long does your game take to play?
 	Only a few minutes.
