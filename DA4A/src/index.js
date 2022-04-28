@@ -31,9 +31,11 @@ light.shadow.camera.near = 0.5;
 light.shadow.camera.far = 500;
 scene.add(light);
 
+// const controls = new FlyControls(camera, renderer.domElement);
 const controls = new FlyControls(camera, renderer.domElement);
 controls.autoForward = true;
 controls.dragToLook = false;
+controls.enablePan = false;
 controls.movementSpeed = 1;
 controls.rollSpeed = 1;
 
