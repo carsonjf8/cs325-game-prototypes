@@ -1,0 +1,30 @@
+CS 325 - Introduction to Computer Game Design
+Digital Assignment 3 - Carson Forsyth
+Laser Night
+Originality: What is original about your game?
+	It is a flying racing game where you must also avoid obstacles and perform simple tricks.
+Technical Merit: What is interesting about your game technology?
+	I am hoping that the feeling will be good due to the controls and physics and that I am using a 3D library.
+Prototype Postmortem: What did you learn from this prototype? What was the easiest or hardest part of making it?
+	I am learning how to use Three.js to do all the 3D graphics and the graphics pipeline.
+Prototype Assets: Did you make your prototype assets from scratch? Did you borrow them? Cite your sources here.
+	The textures are borrowed and credits are in the text file in the folder.
+Prototype Closest Other Game: Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
+	I am not aware of any other games that resemble the style and type of game I am going for.
+High Concept: A one-sentence summary of your game.
+	Race against other planes and avoid the obstacles.
+Theme: State which of the themes or challenges you used.
+	None.
+Mandated Variety: State which input, randomness, genre, and play style you used in this prototype.
+	Input: keyboard, indirect
+	Randomness: deterministic
+	Genre: 3D, third person
+	Play Style: Competitor
+Prototype Goal: What game mechanic is this prototype evaluating?
+	3D graphics
+Player Experience Goals: What experience do you want players to have when playing your game?
+	A fast paced game that feels good and like you are flying a plane.
+Gameplay: A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
+	The controls are not all working properly but you can use QE to roll, ARROW UP and DOWN to pitch, ARROW LEFT and RIGHT to yaw.
+Play Time: How long does your game take to play?
+	Only a few minutes.
