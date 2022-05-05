@@ -25,6 +25,6 @@ Prototype Goal: What game mechanic is this prototype evaluating?
 Player Experience Goals: What experience do you want players to have when playing your game?
 	A fast paced game that feels good and like you are flying a plane.
 Gameplay: A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
-	You are controlling the plane as it flies.  You can use WASD to control the plane.  W is used to pitch upwards, S is used to pitch downwards. A is used to roll left.  D is used to roll right.  Your goal is to follow all the rings and complete the course.  If you run into any walls, you will have to restart.
+	You are controlling the plane as it flies.  You can use WASD to control the plane.  W is used to pitch upwards, S is used to pitch downwards. A is used to roll left.  D is used to roll right.  Pressing SPACE gives you a super boost.  Your goal is to follow all the rings and complete the course.  If you run into any walls, you will have to restart.  When you complete the course, you are told your time.
 Play Time: How long does your game take to play?
 	Only a few minutes.
