@@ -8,7 +8,7 @@ const clock = new Clock();
 const scene = new Scene();
 scene.background = new Color("#ffeecc");
 
-const camera = new PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1000);
+const camera = new PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 2000);
 camera.rotation.order = "YXZ";
 camera.position.set(0, 1, 20);
 
@@ -32,9 +32,9 @@ light.shadow.camera.far = 500;
 scene.add(light);
 
 let planeAngle = 0;
-let movementSpeed = 50;
+let movementSpeed = 200;
 let turnSpeed = 1;
-let verticalSpeed = 20;
+let verticalSpeed = 50;
 let planeMoveState = {
     up: 0,
     down: 0,
@@ -49,6 +49,9 @@ function keydownFunc(event) {
         return;
     }
     switch (event.code) {
+        case 'Space':
+            movementSpeed = 1000;
+            break;
         case 'KeyW':
             planeMoveState.up = 1;
             break;
@@ -72,6 +75,9 @@ function keydownFunc(event) {
 
 function keyupFunc(event) {
     switch (event.code) {
+        case 'Space':
+            movementSpeed = 200;
+            break;
         case 'KeyW':
             planeMoveState.up = 0;
             break;
@@ -96,6 +102,13 @@ function keyupFunc(event) {
 window.addEventListener('keydown', keydownFunc);
 window.addEventListener('keyup', keyupFunc);
 
+function boxBoxCollision(x1, y1, z1, x2, y2, z2, w2, h2, d2) {
+    if(x1 > x2 - w / 2 && x1 < x2 + w2 / 2 && y1 > y2 - h / 2 && y1 < y2 + h2 / 2 && z1 > z2 - d / 2 && z1 < z2 + d2 / 2) {
+        return true;
+    }
+    return false;
+}
+
 function updatePlanePosition(delta, obj) {
     // get angle
     planeAngle += planeMoveState.yawLeft * turnSpeed * delta - planeMoveState.yawRight * turnSpeed * delta;
@@ -111,14 +124,41 @@ function updatePlanePosition(delta, obj) {
 let envmap;
 let tick = 0;
 
-function addNewBox(bufGeom, w, h, d, x, y, z) {
+function addBox(list, x, y, z, w, h, d) {
     let boxGeom = new BoxGeometry(w, h, d);
     boxGeom.translate(x, y, z);
-    bufGeom = mergeBufferGeometries([bufGeom, boxGeom]);
-    return bufGeom;
+    // bufGeom = mergeBufferGeometries([bufGeom, boxGeom]);
+    let wallMesh = new Mesh(
+        boxGeom,
+        new MeshPhysicalMaterial({
+            envMap: envmap,
+            color: '#0000ff'
+        })
+    );
+    wallMesh.castShadow = true;
+    wallMesh.receiveShadow = true;
+    list.push(wallMesh);
+    scene.add(wallMesh);
 }
 
-function addRing(bufGeom, x, y, z, angle = 0, size = 50) {
+function addCylinder(list, x, y, z, r, h) {
+    let cylGeom = new CylinderGeometry(r, r, h, 10);
+    cylGeom.translate(x, y, z);
+    // bufGeom = mergeBufferGeometries([bufGeom, cylGeom]);
+    let wallMesh = new Mesh(
+        cylGeom,
+        new MeshPhysicalMaterial({
+            envMap: envmap,
+            color: '#0000ff'
+        })
+    );
+    wallMesh.castShadow = true;
+    wallMesh.receiveShadow = true;
+    list.push(wallMesh);
+    scene.add(wallMesh);
+}
+
+function addRing(ringList, x, y, z, angle = 0, size = 50) {
     angle *= -1;
 
     let ringGeom = new BoxGeometry(0, 0, 0);
@@ -142,10 +182,25 @@ function addRing(bufGeom, x, y, z, angle = 0, size = 50) {
     ringGeom.rotateY(angle);
     ringGeom.translate(x, y, z);
 
-    bufGeom = mergeBufferGeometries([bufGeom, ringGeom]);
+    let ringMesh = new Mesh(
+        ringGeom,
+        new MeshPhysicalMaterial({
+            envMap: envmap,
+            color: '#ffffff'
+        })
+    );
+    ringMesh.castShadow = true;
+    ringMesh.receiveShadow = true;
 
-    return bufGeom;
+    ringList.push(ringMesh);
+
+    scene.add(ringMesh);
+
+    //bufGeom = mergeBufferGeometries([bufGeom, ringGeom]);
+    //return bufGeom;
 }
+
+let checkpoint = 0;
 
 (async function() {
     let pmrem = new PMREMGenerator(renderer);
@@ -156,60 +211,47 @@ function addRing(bufGeom, x, y, z, angle = 0, size = 50) {
         dirt: await new TextureLoader().loadAsync("../assets/dirt.png"),
     }
 
-    const ah = new AxesHelper(100);
-    scene.add(ah);
-
-    let groundMesh = new Mesh(
-        new BoxGeometry(200, 0.1, 200),
-        new MeshPhysicalMaterial({
-            envMap: envmap,
-            color: '#333333'
-        })
-    );
-    groundMesh.castShadow = true;
-    groundMesh.receiveShadow = true;
-    scene.add(groundMesh);
-
-    // buildings
-    let buildingGeometry = new BoxGeometry(0, 0, 0);
-    /*
-    let bg1 = new BoxGeometry(2, 6, 2);
-    bg1.translate(0, 3, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg1]);
-    let bg2 = new BoxGeometry(2, 6, 2);
-    bg2.translate(4.5, 3, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg2]);
-    let bg3 = new BoxGeometry(2, 6, 2);
-    bg3.translate(9, 3, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg3]);
-    let bg4 = new BoxGeometry(7, 1, 1);
-    bg4.translate(4.5, 2.5, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg4]);
-    let bg5 = new BoxGeometry(2.5, 1, 1);
-    bg5.translate(2.25, 5.5, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg5]);
-    buildingGeometry.scale(10, 10, 10);
-    */
-    /*
-    let bg1 = new BoxGeometry(100, 100, 100);
-    bg1.translate(0, 50, 0);
-    buildingGeometry = mergeBufferGeometries([buildingGeometry, bg1]);
-    */
-    buildingGeometry = addNewBox(buildingGeometry, 100, 100, 100, 0, 50, 0);
-    for(let i = 0; i < 360; i += 20) {
-        buildingGeometry = addRing(buildingGeometry, Math.cos(i * Math.PI / 180) * 200, 150, Math.sin(i * Math.PI / 180) * 200, i * Math.PI / 180);
+    // ring geometries
+    let ringList = [];
+    addRing(ringList, 0, 100, -500, 0);
+    addRing(ringList, 200, 100, -1000, 0);
+    addRing(ringList, 0, 100, -1500, 0);
+    addRing(ringList, 0, 150, -2000, 0);
+    addRing(ringList, 0, 100, -2500, 0);
+    addRing(ringList, 0, 50, -3000, 0);
+    for(let i = -180; i <= 0; i += 20) {
+        addRing(ringList, 1000 + Math.cos(i * Math.PI / 180) * 1000, -180 + 50 - i, -3500 + Math.sin(i * Math.PI / 180) * 1000, i * Math.PI / 180);
     }
+    addRing(ringList, 2000, -130, -3000, 0);
+    addRing(ringList, 1800, -130, -2500, 0);
+    addRing(ringList, 2000, -130, -2000, 0);
+    addRing(ringList, 2200, -130, -1500, 0);
+    addRing(ringList, 2200, -30, -1000, 0);
+    addRing(ringList, 2200, -130, -500, 0);
+    addRing(ringList, 1600, -130, -500, 0);
+    addRing(ringList, 1200, -130, -1000, Math.PI / 2);
+    addRing(ringList, 400, 0, -1200, Math.PI / 2);
+    addRing(ringList, -600, 200, -1100, Math.PI / 2);
+    addRing(ringList, -1000, 200, -600, 0);
+    addRing(ringList, -700, 150, 300, Math.PI / 2);
+    addRing(ringList, 0, 100, 0, 0);
 
-    let buildingMesh = new Mesh(
-        buildingGeometry,
-        new MeshPhysicalMaterial({
-            envMap: envmap,
-            color: '#00ff00'
-        })
-    );
-    buildingMesh.castShadow = true;
-    buildingMesh.receiveShadow = true;
-    scene.add(buildingMesh);
+    // wall geometries
+    let wallList = [];
+    addBox(wallList, 0, 100, -1000, 200, 400, 200);
+    addBox(wallList, 200, 100, -1500, 200, 400, 200);
+    addBox(wallList, 0, 0, -2000, 200, 200, 200);
+    addCylinder(wallList, 1000, 0, -3500, 900, 500);
+    addBox(wallList, 2000, -130, -2500, 200, 200, 200);
+    addBox(wallList, 1800, -130, -2000, 200, 200, 200);
+    addBox(wallList, 2000, -130, -1500, 200, 200, 200);
+    addBox(wallList, 2200, -200, -1000, 200, 200, 200);
+    addBox(wallList, 1900, -130, -500, 200, 600, 800);
+    addBox(wallList, 1900, -130, 300, 800, 600, 100);
+    addBox(wallList, 2400, -130, 300, 200, 600, 500);
+    addBox(wallList, 1400, -130, 300, 200, 600, 500);
+    addBox(wallList, 1400, -130, 300, 200, 600, 500);
+    addBox(wallList, -500, 150, -400, 800, 600, 800);
 
     // plane
     let planeGeometry = new BoxGeometry(0, 0, 0);
@@ -324,10 +366,10 @@ function addRing(bufGeom, x, y, z, angle = 0, size = 50) {
     planeCameraGroup.add(camera);
     camera.position.set(0, 5, 40);
     scene.add(planeCameraGroup);
-    planeCameraGroup.position.set(0, 50, 300);
+    planeCameraGroup.position.set(0, 100, 0);
 
-    let planeBBox = new BoxHelper(planeGroup, 0xffffff);
-    scene.add(planeBBox);
+    let planeBBox = new BoxHelper(planeGroup, 0xff0000);
+    let ringBBox = new BoxHelper(ringList[checkpoint], 0xff0000);
 
     renderer.setAnimationLoop(() => {
         /*
@@ -344,19 +386,40 @@ function addRing(bufGeom, x, y, z, angle = 0, size = 50) {
 
         const delta = clock.getDelta();
         tick += 1;
-
-        if(tick > 300) {
-            buildingMesh.material.color.setHex(0xff0000);
-        }
-        console.log(tick);
         
+        // update plane position and rotation
         updatePlanePosition(delta, planeCameraGroup);
         planeGroup.rotation.x = 0;
         planeGroup.rotation.z = 0;
         planeGroup.rotateX(Math.PI / 4 * (planeMoveState.up - planeMoveState.down));
         planeGroup.rotateZ(Math.PI / 4 * (planeMoveState.yawLeft - planeMoveState.yawRight));
 
+        // check for collision with walls
+        for(let i = 0; i < wallList.length; i++) {
+            for(let j = 0; j < planeGroup.children.length; j++) {
+
+            }
+        }
+
+        // track progress
         planeBBox.update();
+        ringBBox.update();
+        ringList[checkpoint].material.color.setHex(0xffff00);
+        for(let i = 0; i < planeGroup.children.length; i++) {
+            planeBBox.geometry.computeBoundingBox();
+            ringBBox.geometry.computeBoundingBox();
+            if(planeBBox.geometry.boundingBox.intersectsBox(ringBBox.geometry.boundingBox)) {
+            // if(planeGroup.children[i].geometry.boundingBox.intersectsBox(ringList[checkpoint].geometry.boundingBox)) {
+                ringList[checkpoint].material.color.setHex(0xffffff);
+                checkpoint += 1;
+                checkpoint %= ringList.length;
+                if(checkpoint == 0) {
+                    alert("YOU WIN!!!");
+                }
+                ringBBox = new BoxHelper(ringList[checkpoint], 0xff0000);
+                ringList[checkpoint].material.color.setHex(0xffff00);
+            }
+        }
 
         renderer.render(scene, camera);
     })
