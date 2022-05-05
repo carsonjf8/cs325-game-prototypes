@@ -1,4 +1,4 @@
-import { Shape, Vector3, BoxHelper, MeshBasicMaterial, MeshStandardMaterial, HemisphereLight, MeshLambertMaterial, Group, BufferAttribute, BufferGeometry, Vector2, ShapeGeometry, ExtrudeGeometry, AxesHelper, Clock, TextureLoader, Scene, Color, WebGLRenderer, PointLight, Mesh, BoxGeometry, CylinderGeometry, MeshPhysicalMaterial, PMREMGenerator, PerspectiveCamera, ACESFilmicToneMapping, sRGBEncoding, PCFSoftShadowMap, FloatType } from 'https://cdn.skypack.dev/three@0.137';
+import { Shape, SphereGeometry, Vector3, BoxHelper, MeshBasicMaterial, MeshStandardMaterial, HemisphereLight, MeshLambertMaterial, Group, BufferAttribute, BufferGeometry, Vector2, ShapeGeometry, ExtrudeGeometry, AxesHelper, Clock, TextureLoader, Scene, Color, WebGLRenderer, PointLight, Mesh, BoxGeometry, CylinderGeometry, MeshPhysicalMaterial, PMREMGenerator, PerspectiveCamera, ACESFilmicToneMapping, sRGBEncoding, PCFSoftShadowMap, FloatType } from 'https://cdn.skypack.dev/three@0.137';
 import { RGBELoader } from 'https://cdn.skypack.dev/three-stdlib@2.8.5/loaders/RGBELoader';
 import { mergeBufferGeometries } from 'https://cdn.skypack.dev/three-stdlib@2.8.5/utils/BufferGeometryUtils';
 import { FlyControls } from 'https://cdn.skypack.dev/three-stdlib@2.8.5/controls/FlyControls';
@@ -371,6 +371,13 @@ let checkpoint = 0;
     let planeBBox = new BoxHelper(planeGroup, 0xff0000);
     let ringBBox = new BoxHelper(ringList[checkpoint], 0xff0000);
 
+    function resetToStart(obj) {
+        obj.position.set(0, 100, 0);
+        obj.rotation.y = 0;
+        obj.rotation.x = 0;
+        obj.rotation.z = 0;
+    }
+
     renderer.setAnimationLoop(() => {
         /*
         console.log(Math.round(planeGroup.position.x * 100) / 100 + " "
@@ -394,31 +401,57 @@ let checkpoint = 0;
         planeGroup.rotateX(Math.PI / 4 * (planeMoveState.up - planeMoveState.down));
         planeGroup.rotateZ(Math.PI / 4 * (planeMoveState.yawLeft - planeMoveState.yawRight));
 
+        const cylinderGeomIndexList = [3];
         // check for collision with walls
         for(let i = 0; i < wallList.length; i++) {
-            for(let j = 0; j < planeGroup.children.length; j++) {
+            let isCylinder = false;
+            for(let j = 0; j < cylinderGeomIndexList.length; j++) {
+                if(i == cylinderGeomIndexList[j]) {
+                    planeBBox.geometry.computeBoundingBox();
+                    if(planeBBox.geometry.boundingBox.distanceToPoint(new Vector3(1000, planeGroup.position.y, -3500) < 900)) {
+                        resetToStart(planeCameraGroup);
+                    }
 
+                    /*
+                    let cylinderSphere = new SphereGeometry(900);
+                    cylinderSphere.translate(wallList[i].position.x, planeBBox.position.y, wallList[i].position.z);
+                    cylinderSphere.computeBoundingSphere();
+                    console.log(cylinderSphere);
+                    if(planeBBox.geometry.boundingBox.intersectsSphere(cylinderSphere.boundingSphere)) {
+                        //resetToStart(planeCameraGroup);
+                    }
+                    */
+                    isCylinder = true;
+                }
             }
+            if(isCylinder) {
+                continue;
+            }
+
+            planeBBox.geometry.computeBoundingBox();
+            let wallBBox = new BoxHelper(wallList[i], 0xff0000);
+            wallBBox.geometry.computeBoundingBox();
+            if(planeBBox.geometry.boundingBox.intersectsBox(wallBBox.geometry.boundingBox)) {
+                resetToStart(planeCameraGroup);
+            }
+            // scene.add(wallBBox);
         }
 
         // track progress
         planeBBox.update();
         ringBBox.update();
         ringList[checkpoint].material.color.setHex(0xffff00);
-        for(let i = 0; i < planeGroup.children.length; i++) {
-            planeBBox.geometry.computeBoundingBox();
-            ringBBox.geometry.computeBoundingBox();
-            if(planeBBox.geometry.boundingBox.intersectsBox(ringBBox.geometry.boundingBox)) {
-            // if(planeGroup.children[i].geometry.boundingBox.intersectsBox(ringList[checkpoint].geometry.boundingBox)) {
-                ringList[checkpoint].material.color.setHex(0xffffff);
-                checkpoint += 1;
-                checkpoint %= ringList.length;
-                if(checkpoint == 0) {
-                    alert("YOU WIN!!!");
-                }
-                ringBBox = new BoxHelper(ringList[checkpoint], 0xff0000);
-                ringList[checkpoint].material.color.setHex(0xffff00);
+        planeBBox.geometry.computeBoundingBox();
+        ringBBox.geometry.computeBoundingBox();
+        if(planeBBox.geometry.boundingBox.intersectsBox(ringBBox.geometry.boundingBox)) {
+            ringList[checkpoint].material.color.setHex(0xffffff);
+            checkpoint += 1;
+            checkpoint %= ringList.length;
+            if(checkpoint == 0) {
+                alert("YOU WIN!!! Your time was " + tick + " ticks");
             }
+            ringBBox = new BoxHelper(ringList[checkpoint], 0xff0000);
+            ringList[checkpoint].material.color.setHex(0xffff00);
         }
 
         renderer.render(scene, camera);
